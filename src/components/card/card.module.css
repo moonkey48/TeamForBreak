@@ -1,0 +1,144 @@
+
+.card{
+    width: 400px;
+    height: 200px;
+    background-color: #fff;
+    border-radius: 10px;
+    margin: 0 20px 20px 0;
+    transition: 0.3s;
+}
+.card.green{background-color: #52D093;}
+.card.yellow{background-color: #F3CE0C;}
+.card.pink{background-color: #E7505B;}
+.card.orange{background-color: #EE7F4D;}
+
+.cardHeader{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.clearBox{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    opacity: 0;
+    transition: 0.3s;
+    transition-delay: 0.2s;
+}
+.clearBox.clear{
+    opacity: 1;
+    transform: translateY(5px);
+}
+
+.clearText{
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 24px;
+    color: #fff;
+    margin: 0 20px 0 5px;
+}
+.todoList{
+    margin-top: 10px;
+    padding: 15px 15px 15px;
+}
+.nameBox{
+    width: 120px;
+    height: 35px;
+    border-radius: 10px 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.name{
+    color: #fff;
+    font-weight: 600;
+    font-size: 16px;
+    transition: 0.3s;
+    transition-delay: 0.2s;
+}
+.name.clear{
+    transform: translateX(-10px);
+}
+.nameBox.green{background-color: #52D093;}
+.nameBox.yellow{background-color: #F3CE0C;}
+.nameBox.pink{background-color: #E7505B;}
+.nameBox.orange{background-color: #EE7F4D;}
+
+.todoItem{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 10px;
+    border-bottom: 1px solid #E9E9E9;
+    padding-bottom: 10px;
+}
+.leftBox{
+    display: flex;
+    align-items: center;
+}
+.check_button{
+    width: 16px;
+    height: 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.unchecked{
+    border: 1px solid #9F9F9F;
+    background-color: #fff;
+}
+.checked:hover{
+    opacity: 0.7;
+}
+
+.unchecked.green:hover{
+    background-color: #52D093;
+    border: 1px solid #fff;
+}
+.checked.green{
+    background-color: #52D093;
+    border: 1px solid #fff;
+}
+.unchecked.yellow:hover{
+    background-color: #F3CE0C;
+    border: 1px solid #fff;
+}
+.checked.yellow{
+    background-color: #F3CE0C;
+    border: 1px solid #fff;
+}
+.unchecked.pink:hover{
+    background-color: #E7505B;
+    border: 1px solid #fff;
+}
+.checked.pink{
+    background-color: #E7505B;
+    border: 1px solid #fff;
+}
+.unchecked.orange:hover{
+    background-color: #EE7F4D;
+    border: 1px solid #fff;
+}
+.checked.orange{
+    background-color: #EE7F4D;
+    border: 1px solid #fff;
+}
+
+.delete_button{
+    opacity: 0.3;
+    transition: 0.3s;
+    cursor: pointer;
+}
+.delete_button:hover{
+    opacity: 1;
+}
+.todo_content{
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 19px;
+    color: #4A4A4A;
+    padding-left: 10px;
+}
+.todo_content.clear{
+    color: #fff;
+}
