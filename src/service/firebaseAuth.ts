@@ -1,8 +1,9 @@
+import { UserLogin } from './../types/userType';
 import {FirebaseApp} from 'firebase/app';
 import { getAuth,GoogleAuthProvider,signInWithPopup,Auth,AuthProvider } from "firebase/auth";
 
 export interface AuthServiceI{
-    signIn:()=>void;
+    signIn:(userOn:(loginResult:UserLogin)=>void)=>void;
 }
 
 export class AuthService implements AuthServiceI{
@@ -12,23 +13,30 @@ export class AuthService implements AuthServiceI{
         this.auth = getAuth(app);
         this.provider = new GoogleAuthProvider();
     }
-    signIn(){
+    signIn(userOn:(loginResult:UserLogin)=>void){
         signInWithPopup(this.auth, this.provider)
         .then((result) => {
             // This gives you a Google Access Token. You can use it to access the Google API.
-            const credential = GoogleAuthProvider.credentialFromResult(result);
-            const token = credential?.accessToken;
+            // const credential = GoogleAuthProvider.credentialFromResult(result);
             const user = result.user;
             console.log(result);
+            userOn({
+                name:user.displayName as string,
+                email:user.email as string,
+                uid:user.uid,
+            })
         }).catch((error) => {
-            // Handle Errors here.
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            // The email of the user's account used.
-            const email = error.customData.email;
-            // The AuthCredential type that was used.
-            const credential = GoogleAuthProvider.credentialFromError(error);
-            console.log(errorMessage);
+            // const errorCode = error.code;
+            // const errorMessage = error.message;
+            // const email = error.customData.email;
+            // const credential = GoogleAuthProvider.credentialFromError(error);
+            // console.log(errorMessage);
         });
+        
+        return {
+            name:null,
+            email:null,
+            uid:null,
+        }
     }
 }

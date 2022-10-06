@@ -1,19 +1,40 @@
 import React, { useState } from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
 import './App.css';
-import Login from './pages/Login/Login';
 import LoginContainer from './pages/Login/LoginContainer';
 import MainContainer from './pages/Main/MainContainer';
+import RoomsContainer from './pages/Rooms/RoomsContainer';
 import app from './service/firebase';
-import {AuthService,AuthServiceI} from './service/firebaseAuth';
+import {AuthService} from './service/firebaseAuth';
+import { UserLogin } from './types/userType';
 
 const firebaseAuth = new AuthService(app);
+
 function App() {
+  const [user, setUser] = useState<UserLogin>({
+    name:'',
+    uid:'',
+    email:'',
+  })
+  const userOn = (loginResult:UserLogin)=>{
+    console.log(loginResult);
+    if(loginResult.uid!==null){
+      setUser(loginResult);
+    }
+  }
+  const userOff = ()=>{
+    setUser({
+      name:'',
+      uid:'',
+      email:'',
+    });
+  }
   return (
     <BrowserRouter>
     <Routes>
-      <Route path='/' element={<LoginContainer firebaseAuth={firebaseAuth}/>} />
-      <Route path='/Main' element={<MainContainer/>} />
+      <Route path='/' element={<LoginContainer user={user} userOn={userOn} firebaseAuth={firebaseAuth}/>} />
+      <Route path='/Rooms' element={<RoomsContainer firebaseAuth={firebaseAuth}/>} />
+      <Route path='/Main' element={<MainContainer/>}/>
     </Routes>
     </BrowserRouter>
   );

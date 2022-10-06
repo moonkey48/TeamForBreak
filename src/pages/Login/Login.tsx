@@ -1,11 +1,13 @@
 import React from 'react';
 import { AuthServiceI } from '../../service/firebaseAuth';
+import { UserLogin } from '../../types/userType';
 import s from './Login.module.css';
 
 type Props ={
     onSignIn:()=>void;
+    alert:string;
 }
-const Login = ({onSignIn}:Props) => {
+const Login = ({onSignIn,alert}:Props) => {
     return <div className={s.container}>
         <svg className={s.logo} width="177" height="169" viewBox="0 0 177 169" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M32.1056 0H0.642112V10.1609H10.9159V45.0891H21.8318V10.1609H32.1056V0Z" fill="white"/>
@@ -25,6 +27,7 @@ const Login = ({onSignIn}:Props) => {
             <h3 className={s.loginTitle}>로그인하기</h3>
             <button onClick={()=>onSignIn()} className={s.loginButton}>Google</button>
         </div>
+        <h1 className={`${s.alert} ${alert!==''?s.show:''}`}>{alert}</h1>
     </div>
 }
 

@@ -31,3 +31,16 @@
     font-size: 20px;
     color: #000000;
 }
+.alert{
+    position: absolute;
+    left: 30px;
+    top: 250px;
+    font-weight: 700;
+    font-size: 20px;
+    color:gold;
+    opacity: 0;
+    transition: 0.3;
+}
+.alert.show{
+    opacity: 1;
+}

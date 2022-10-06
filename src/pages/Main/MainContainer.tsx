@@ -7,6 +7,7 @@ const MainContainer = () => {
         'id1':{
           name:'austin',
           uid:'id1',
+          email:'gogo4905@gmail.com',
           theme:'green',
           todoList:[
             {content:'Daily Coding',done:false},
@@ -16,6 +17,7 @@ const MainContainer = () => {
         'id2':{
           name:'lizzy',
           uid:'id2',
+          email:'gogo4905@gmail.com',
           theme:'yellow',
           todoList:[
             {content:'UX 리서치',done:false},
@@ -25,6 +27,7 @@ const MainContainer = () => {
         'id3':{
           name:'Seven',
           uid:'id3',
+          email:'gogo4905@gmail.com',
           theme:'pink',
           todoList:[
             {content:'UX 리서치',done:false},
@@ -34,12 +37,14 @@ const MainContainer = () => {
         'id4':{
           name:'moonkey',
           uid:'id4',
+          email:'gogo4905@gmail.com',
           theme:'orange',
           todoList:[],
         },
         'id5':{
           name:'zelly',
           uid:'id5',
+          email:'gogo4905@gmail.com',
           theme:'green',
           todoList:[
             {content:'브랜딩 미메시스',done:false},
@@ -49,6 +54,7 @@ const MainContainer = () => {
         'id6':{
           name:'lily',
           uid:'id6',
+          email:'gogo4905@gmail.com',
           theme:'yellow',
           todoList:[
             // {content:'UI 미메시스',done:false},
