@@ -48,7 +48,7 @@ const Card = ({user,checkItem}:Props) => {
                 }
                 {user.todoList.length === 0 ?<li className={s.todoItem} key={1}>
                         <div className={s.leftBox}>
-                            <h5 className={`${s.todo_content}`} style={{fontSize: '14px'}}>아직 {user.name}님이 오늘의 목표를 적지 않았네요 🙃</h5>
+                            <h5 className={`${s.todo_content}`} style={{fontSize: '14px'}}>아직 {user.name}님이 목표를 적지 않았네요 🙃</h5>
                         </div>
                     </li>:''}
             </ul>
