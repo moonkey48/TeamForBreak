@@ -4,8 +4,9 @@ import s from './roomNow.module.css';
 
 type Props = {
     room:RoomT,
+    goRoomNow:(roomId:string)=>void;
 }
-const RoomNow = ({room}:Props) => {
+const RoomNow = ({room,goRoomNow}:Props) => {
     return <li className={s.roomNow_item}>
         <div className={s.titleBox}>
             <h4 className={s.title}>{room.title}</h4>
@@ -14,7 +15,7 @@ const RoomNow = ({room}:Props) => {
             <div className={s.progressBar}></div>
             <div className={s.progress}>{room.progress}%</div>
         </div>
-        <button className={`${s.join} ${s[room.theme]}`}>참가하기</button>
+        <button onClick={()=>goRoomNow(room.roomId)} className={`${s.join} ${s[room.theme]}`}>참가하기</button>
     </li>
 }
 
