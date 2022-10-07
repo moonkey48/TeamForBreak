@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthServiceI } from '../../service/firebaseAuth';
-import { UserLogin } from '../../types/userType';
+import { User, UserLogin } from '../../types/userType';
 import Login from './Login';
 
 type Props ={
     firebaseAuth: AuthServiceI;
-    user:UserLogin;
-    userOn:(loginResult:UserLogin)=>void;
+    user:User;
+    userOn:(loginResult:User)=>void;
 }
 const LoginContainer = ({firebaseAuth,user,userOn}:Props) => {
     const navigate = useNavigate();

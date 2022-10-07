@@ -1,7 +1,12 @@
 import React from 'react';
 import s from './Header.module.css';
 
-const Header = () => {
+type Props = {
+    handelLogout:()=>void;
+    handleGoRoom:()=>void;
+    handleGoEdit:()=>void;
+}
+const Header = ({handelLogout,handleGoRoom,handleGoEdit}:Props) => {
     return(
         <header>
             <div className={s.header_left}>
@@ -22,7 +27,11 @@ const Header = () => {
                     <h3 className={`${s.t_small} ${s.color_grey}`}>40,000원</h3>
                 </div>
             </div>
-            <button className={s.editButton}></button>
+            <div className={s.header_right}>
+                <button className={s.editButton} onClick={()=>handleGoEdit()}></button>
+                <button className={s.myRoom} onClick={()=>handleGoRoom()}></button>
+                <a className={s.logout} onClick={()=>handelLogout()} >logout</a>
+            </div>
         </header>
     )
 }

@@ -6,14 +6,15 @@ import {Users} from '../../types/userType';
 
 type Props = {
     userInfo: Users;
+    userOff:()=>void;
     checkItem:(id:string , index:number)=>void;
 }
 
-const Main = ({userInfo,checkItem}:Props) => {
+const Main = ({userInfo,checkItem,userOff}:Props) => {
     const inputRef = useRef<HTMLInputElement>(null);
     const formRef = useRef<HTMLFormElement>(null);
     return <div className={s.container}>
-        <HeaderContainer/>
+        <HeaderContainer userOff={userOff}/>
         <CardsContainer userInfo={userInfo} checkItem={checkItem} />
         {/* <main>
             <form ref={formRef}>

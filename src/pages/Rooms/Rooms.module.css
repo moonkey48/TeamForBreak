@@ -2,13 +2,11 @@
     width: 100%;
     height: 100%;
     display: flex;
-    align-items: center;
     flex-direction: row;
-}
-.leftWrap{
-    margin-left: 30px;
     margin-top: 30px;
+    margin-left: 30px;
 }
+
 .leftWrap .logo{
     width: 177px;
     height: 169px;
@@ -36,4 +34,25 @@
 }
 .leftWrap .logoutButton:hover{
     color: #868686;
+}
+.main_title{
+    font-weight: 700;
+    font-size: 22px;
+    color: #3F3F3F;
+}
+.rightWrap{
+    margin-left: 70px;
+}
+.roomNowWrap .roomNow_list{
+    display: flex;
+    align-items: center;
+    flex-flow: row wrap;
+}
+.roomAllWrap{
+    margin-top: 50px;
+}
+.roomAllWrap .roomAll_list{
+    display: flex;
+    align-items: center;
+    flex-flow: row wrap;
 }

@@ -1,9 +1,24 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import Header from './Header';
 
-const HeaderContainer = () => {
+type Props ={
+    userOff:()=>void;
+}
+const HeaderContainer = ({userOff}:Props) => {
+    const navigate = useNavigate();
+    const handelLogout = () =>{
+        userOff();
+        navigate('/');
+    }
+    const handleGoRoom = () =>{
+        navigate('/Rooms');
+    }
+    const handleGoEdit = () =>{
+        navigate('/Edit');
+    }
     return(
-        <Header/>
+        <Header handelLogout={handelLogout} handleGoRoom={handleGoRoom} handleGoEdit={handleGoEdit}/>
     )
 }
 

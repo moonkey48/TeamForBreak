@@ -68,14 +68,43 @@ header{
     justify-content: space-between;
     padding: 0 15px;
 }
-.editButton{
+.header_right{
     position: absolute;
     top: 10px;
     right: 10px;
-    width: 38px;
+    display: flex;
+    align-items: flex-end;
+    flex-direction: column;
+}
+.header_right .editButton{
+    width: 100px;
     height: 17px;
-    background: url('/public/images/edit.png') 0 center no-repeat;
+    background: url('/public/images/Edit.png') 0 center no-repeat;
     background-size: contain;
     cursor: pointer;
     border: none;
+}
+.header_right .myRoom{
+    width: 96px;
+    height: 21px;
+    background: url('/public/images/Room.png') 0 center no-repeat;
+    background-size: contain;
+    cursor: pointer;
+    border: none;
+    margin-top: 10px;
+}
+.header_right .logout{
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 26px;
+    display: flex;
+    align-items: center;
+    color: #D0D0D0;
+    border: none;
+    background: none;
+    transition: 0.3s color;
+    cursor: pointer;
+}
+.header_right .logout:hover{
+    color: #868686;
 }

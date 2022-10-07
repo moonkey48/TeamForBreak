@@ -1,9 +1,9 @@
-import { UserLogin } from './../types/userType';
+import { User, UserLogin } from './../types/userType';
 import {FirebaseApp} from 'firebase/app';
 import { getAuth,GoogleAuthProvider,signInWithPopup,Auth,AuthProvider } from "firebase/auth";
 
 export interface AuthServiceI{
-    signIn:(userOn:(loginResult:UserLogin)=>void)=>void;
+    signIn:(userOn:(loginResult:User)=>void)=>void;
 }
 
 export class AuthService implements AuthServiceI{
@@ -13,7 +13,7 @@ export class AuthService implements AuthServiceI{
         this.auth = getAuth(app);
         this.provider = new GoogleAuthProvider();
     }
-    signIn(userOn:(loginResult:UserLogin)=>void){
+    signIn(userOn:(loginResult:User)=>void){
         signInWithPopup(this.auth, this.provider)
         .then((result) => {
             // This gives you a Google Access Token. You can use it to access the Google API.
@@ -24,6 +24,9 @@ export class AuthService implements AuthServiceI{
                 name:user.displayName as string,
                 email:user.email as string,
                 uid:user.uid,
+                todoList:[],
+                theme:'green',
+                rooms:['room2']
             })
         }).catch((error) => {
             // const errorCode = error.code;

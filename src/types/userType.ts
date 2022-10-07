@@ -11,6 +11,7 @@ export type Theme = 'green' | 'orange' | 'pink' | 'yellow';
 export type UserData ={
     todoList:Todo[];
     theme:Theme;
+    rooms?:string[];
 }
 export type User = UserLogin & UserData;
 export type Users = {

@@ -2,75 +2,13 @@ import React, { useEffect, useState } from 'react';
 import Main from './Main';
 import {Todo, User, Users} from '../../types/userType';
 
-const MainContainer = () => {
-    const [userInfo,setUserInfo] = useState<Users>({
-        'id1':{
-          name:'austin',
-          uid:'id1',
-          email:'gogo4905@gmail.com',
-          theme:'green',
-          todoList:[
-            {content:'Daily Coding',done:false},
-            {content:'CS Research',done:false},
-          ],
-        },
-        'id2':{
-          name:'lizzy',
-          uid:'id2',
-          email:'gogo4905@gmail.com',
-          theme:'yellow',
-          todoList:[
-            {content:'UX 리서치',done:false},
-            {content:'포트폴리오 완성',done:false},
-          ],
-        },
-        'id3':{
-          name:'Seven',
-          uid:'id3',
-          email:'gogo4905@gmail.com',
-          theme:'pink',
-          todoList:[
-            {content:'UX 리서치',done:false},
-            {content:'포트폴리오 완성',done:false},
-          ],
-        },
-        'id4':{
-          name:'moonkey',
-          uid:'id4',
-          email:'gogo4905@gmail.com',
-          theme:'orange',
-          todoList:[],
-        },
-        'id5':{
-          name:'zelly',
-          uid:'id5',
-          email:'gogo4905@gmail.com',
-          theme:'green',
-          todoList:[
-            {content:'브랜딩 미메시스',done:false},
-            {content:'포트폴리오 완성',done:false},
-          ],
-        },
-        'id6':{
-          name:'lily',
-          uid:'id6',
-          email:'gogo4905@gmail.com',
-          theme:'yellow',
-          todoList:[
-            // {content:'UI 미메시스',done:false},
-            // {content:'포트폴리오 완성',done:false},
-          ],
-        },
-      })
-    const checkItem = (id:string , index:number) =>{
-        let updated = {...userInfo};
-        updated[id].todoList[index].done = updated[id].todoList[index].done===true?false:true;
-        setUserInfo(updated);
-    }
-    // const deleteItem = (key:number) =>{
-    //     const updated = 
-    // }
-    return <Main userInfo={userInfo} checkItem={checkItem} />
+type Props = {
+  userInfo:Users;
+  userOff:()=>void;
+  checkItem:(id:string,index:number)=>void;
+}
+const MainContainer = ({userInfo,userOff,checkItem}:Props) => {
+    return <Main userOff={userOff} userInfo={userInfo} checkItem={checkItem} />
 }
 
 export default MainContainer;
