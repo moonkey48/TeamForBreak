@@ -13,7 +13,7 @@ const LoginContainer = ({firebaseAuth,user,userOn}:Props) => {
     const navigate = useNavigate();
     const [alert,setAlert] = useState<string>('');
     useEffect(()=>{
-        if(user!.uid!==null){
+        if(user!.uid!==''){
             navigate('/Rooms');
         }
     },[user])

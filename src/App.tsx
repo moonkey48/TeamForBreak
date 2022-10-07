@@ -33,7 +33,7 @@ function App() {
     <BrowserRouter>
     <Routes>
       <Route path='/' element={<LoginContainer user={user} userOn={userOn} firebaseAuth={firebaseAuth}/>} />
-      <Route path='/Rooms' element={<RoomsContainer firebaseAuth={firebaseAuth}/>} />
+      <Route path='/Rooms' element={<RoomsContainer userOff={userOff} user={user} firebaseAuth={firebaseAuth}/>} />
       <Route path='/Main' element={<MainContainer/>}/>
     </Routes>
     </BrowserRouter>
