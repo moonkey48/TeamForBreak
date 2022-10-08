@@ -11,10 +11,7 @@ const RoomNow = ({room,goRoomNow}:Props) => {
         <div className={s.titleBox}>
             <h4 className={s.title}>{room.title}</h4>
         </div>
-        <div className={s.progressBox}>
-            <div className={s.progressBar}></div>
-            <div className={s.progress}>{room.progress}%</div>
-        </div>
+        <h4 className={s.remainDate}>D-{room.remain}</h4>
         <button onClick={()=>goRoomNow(room.roomId)} className={`${s.join} ${s[room.theme]}`}>참가하기</button>
     </li>
 }

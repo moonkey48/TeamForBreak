@@ -24,14 +24,22 @@ export class AuthService implements AuthServiceI{
                 name:user.displayName as string,
                 email:user.email as string,
                 uid:user.uid,
-                rooms:{}
+                rooms:{
+                    'room1':{
+                        theme:'green',
+                        todoList:[
+                          {content:'Daily Coding',done:false},
+                          {content:'CS Research',done:false},
+                        ],
+                      }
+                }
             })
         }).catch((error) => {
             // const errorCode = error.code;
-            // const errorMessage = error.message;
+            const errorMessage = error.message;
             // const email = error.customData.email;
             // const credential = GoogleAuthProvider.credentialFromError(error);
-            // console.log(errorMessage);
+            console.log(errorMessage);
         });
         
         return {

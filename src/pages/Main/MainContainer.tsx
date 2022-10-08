@@ -7,21 +7,24 @@ import { RoomInfoT, RoomsT } from '../../types/roomType';
 type Props = {
   userAll:Users;
   roomsAll:RoomsT;
+  user:User;
   userOff:()=>void;
+  changeItem:(id:string,roomId:string,index:number,content:string)=>void;
   checkItem:(id:string,roomId:string,index:number)=>void;
 }
-const MainContainer = ({userAll,roomsAll,userOff,checkItem}:Props) => {
+const MainContainer = ({userAll,user,roomsAll,userOff,changeItem,checkItem}:Props) => {
     const location = useLocation();
     const [roomInfo,setRoomInfo] = useState<RoomInfoT>({
       title:'',
       description:'',
-      progress:0,
       roomId:'',
       password:'',
       theme:'green',
       member:[],
       memberIds:[],
-      day:'',
+      startTime:1669762400000,
+      endTime:1669766400000,
+      remain:0,
       fine_total:0,
       fine_each:{},
     });
@@ -31,7 +34,7 @@ const MainContainer = ({userAll,roomsAll,userOff,checkItem}:Props) => {
       setRoomInfo(roomsAll[roomId]);
       const userIds:string[] = roomsAll[roomId].memberIds;
     },[]);
-    return <Main userOff={userOff} userAll={userAll} roomInfo={roomInfo} checkItem={checkItem} />
+    return <Main userOff={userOff} user={user} userAll={userAll} roomInfo={roomInfo} changeItem={changeItem} checkItem={checkItem} />
 }
 
 export default MainContainer;

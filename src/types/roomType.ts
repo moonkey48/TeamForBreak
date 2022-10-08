@@ -3,13 +3,14 @@ import { Theme } from './userType';
 export type RoomInfoT = { 
     title:string,
     description:string,
-    progress:number,
     roomId:string,
     password:string,
     theme:Theme,
     member:string[],
     memberIds:string[],
-    day:string;
+    startTime:number,
+    endTime:number,
+    remain:number;
     fine_total:number;
     fine_each:{[memberName:string]:number};
 }

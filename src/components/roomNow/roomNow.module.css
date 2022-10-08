@@ -1,6 +1,6 @@
 
 .roomNow_item{
-    width: 240px;
+    width: 280px;
     height: 110px;
     background-color: #fff;
     border-radius: 10px;
@@ -9,36 +9,19 @@
 }
 .titleBox{
     width: 100%;
-    padding: 15px;
+    padding: 15px 15px 10px;
 }
 .title{
     font-weight: 700;
-    font-size: 16px;
+    font-size: 20px;
     color: #4A4A4A;
 }
-.progressBox{
-    width: 100%;
-    height: 20px;
-    border-width: 1px 0px;
-    border-style: solid;
-    border-color: #ECECEC;
-    position: relative;
-}
-.progressBox .progressBar{
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 30%;
-    height: 100%;
-    background-color: #E8E8E8;
-}
-.progressBox .progress{
-    position: absolute;
-    top: 2px;
-    left: 15px;
+.remainDate{
     font-weight: 600;
-    font-size: 12px;
-    color: #383838;
+    font-size: 16px;
+    color: #838383;
+    margin-left: 15px;
+    margin-bottom: 10px;
 }
 .join{
     width: 100%;
@@ -49,7 +32,7 @@
     border: none;
     border-radius: 0px 0px 10px 10px;
     font-weight: 600;
-    font-size: 14px;
+    font-size: 18px;
     line-height: 17px;
     color: #fff;
 }

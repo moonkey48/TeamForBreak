@@ -46,8 +46,9 @@ const Card = ({cardUser,user,roomId,changeItem,checkItem}:Props) => {
                     return <li className={s.todoItem} key={index}>
                         <div className={s.leftBox}>
                             <button onClick={()=>{
-                                checkItem(cardUser.uid,roomId,index)
-                                
+                                if(owner){
+                                    checkItem(cardUser.uid,roomId,index)
+                                }
                             }} className={`${owner?s.check_button:s.check_button_enabled} ${todo.done?s.checked:s.unchecked} ${s[cardUser.rooms[roomId].theme]}`}></button>
                             <form className={s.todoItem_form}>
                                 <input className={`${s.todoItem_input} ${clear===true?s.clear:''} ${owner?s.show:s.hide}`} value={todo.content} 

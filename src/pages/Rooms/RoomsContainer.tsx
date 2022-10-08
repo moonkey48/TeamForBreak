@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import MakeRoom from '../../components/makeRoom/makeRoom';
 import { AuthServiceI } from '../../service/firebaseAuth';
 import { RoomsT } from '../../types/roomType';
 import { User, UserLogin } from '../../types/userType';
@@ -13,6 +14,7 @@ type Props ={
 }
 const RoomsContainer = ({firebaseAuth,user,userOff,roomsAll}:Props) => {
     const navigate = useNavigate();
+    const [isNewTeam,setIsNewTeam] = useState(false); 
     const goRoomNow = (roomId:string) =>{
         navigate({
             pathname:'/Main',
@@ -47,7 +49,10 @@ const RoomsContainer = ({firebaseAuth,user,userOff,roomsAll}:Props) => {
             navigate('/')
         }
     },[user]);
-    return <Rooms user={user} userOff={userOff} goRoomNow={goRoomNow} goRoomNew={goRoomNew} roomsAll={roomsAll}/>
+    return <>
+    <Rooms user={user} userOff={userOff} goRoomNow={goRoomNow} goRoomNew={goRoomNew} roomsAll={roomsAll} setIsNewTeam={setIsNewTeam} />
+    {isNewTeam?<MakeRoom/>:''}
+    </>
 }
 
 export default RoomsContainer;

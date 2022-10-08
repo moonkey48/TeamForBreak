@@ -18,10 +18,7 @@ const RoomAll = ({room,goRoomNew}:Props) => {
     <div className={s.descriptionBox}>
         <h4 className={s.description}>{room.description}</h4>
     </div>
-    <div className={s.progressBox}>
-        <div className={s.progressBar}></div>
-        <div className={s.progress}>{room.progress}%</div>
-    </div>
+    <h4 className={s.roomDate}>D-{room.remain}</h4>
     <div className={s.codeBox}>
         <form ref={formRef} onSubmit={(e)=>{
             e.preventDefault();

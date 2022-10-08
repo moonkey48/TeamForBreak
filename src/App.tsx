@@ -23,39 +23,42 @@ function App() {
     'room1':{
           title:'Daily Design',
           description:'A graphic design team for breaking 3D modeling skill.',
-          progress:30,
           roomId:'room1',
           password:'pw_room1',
           theme:'green',
           member:['austin','lizzy'],
           memberIds:['id1','id2'],
-          day:'2022/10/30',
+          startTime:1669762400000,
+          endTime:1669766400000,
+          remain:40,
           fine_total:30000,
           fine_each:{'austin':10000,'lizzy':20000,},
     },
     'room2':{
           title:'Log the Day',
           description:'오늘의 코드가 미래의 나를 살린다.',
-          progress:10,
           roomId:'room2',
           password:'pw_room2',
           theme:'orange',
           member:['seven','moonkey'],
           memberIds:['id3','id4'],
-          day:'2022/10/30',
+          startTime:1669762400000,
+          endTime:1669766400000,
+          remain:10,
           fine_total:10000,
           fine_each:{'seven':0,'moonkey':10000,},
     },
     'room3':{
         title:'Book Book',
         description:'매일의 한줌 나눔',
-        progress:50,
         roomId:'room3',
         password:'pw_room3',
         theme:'pink',
         member:['zelly','lily'],
         memberIds:['id5','id6'],
-        day:'2022/10/30',
+        startTime:1669762400000,
+        endTime:1669766400000,
+        remain:30,
         fine_total:30000,
         fine_each:{'zelly':10000,'lily':20000,},
     },
@@ -148,6 +151,11 @@ function App() {
       updated[id].rooms[roomId].todoList[index].done = updated[id].rooms[roomId].todoList[index].done===true?false:true;
       setUserAll(updated);
   }
+  const changeItem = (id:string ,roomId:string, index:number, content:string) =>{
+    let updated = {...userAll};
+    updated[id].rooms[roomId].todoList[index].content = content;
+    setUserAll(updated);
+}
   const userOn = (loginResult:User)=>{
     console.log(loginResult);
     if(loginResult.uid!==null){
@@ -167,7 +175,7 @@ function App() {
     <Routes>
       <Route path='/' element={<LoginContainer user={user} userOn={userOn} firebaseAuth={firebaseAuth}/>} />
       <Route path='/Rooms' element={<RoomsContainer userOff={userOff} user={user} roomsAll={roomsAll} firebaseAuth={firebaseAuth}/>} />
-      <Route path='/Main' element={<MainContainer roomsAll={roomsAll} userOff={userOff} userAll={userAll} checkItem={checkItem}/>}/>
+      <Route path='/Main' element={<MainContainer user={user} roomsAll={roomsAll} userOff={userOff} userAll={userAll} checkItem={checkItem} changeItem={changeItem}/>}/>
       <Route path='/Edit' element={<EditContainer/>} />
     </Routes>
     </BrowserRouter>

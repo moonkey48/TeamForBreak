@@ -9,16 +9,18 @@ type Props ={
     user:User;
     userOff:()=>void;
     roomsAll:RoomsT;
+    setIsNewTeam: React.Dispatch<React.SetStateAction<boolean>>;
     goRoomNew:(roomId:string, roomPw:string,inputValue:string)=>boolean;
     goRoomNow:(roomId:string)=>void;
 }
-const Rooms = ({user,userOff,roomsAll,goRoomNew,goRoomNow}:Props) => {
+const Rooms = ({user,userOff,roomsAll,goRoomNew,goRoomNow,setIsNewTeam}:Props) => {
     
     return <div className={s.container}>
         <section className={s.leftWrap}>
             <h1 className={s.logo}></h1>
             <h3 className={s.hello}>안녕하세요,<br />{user.name}님</h3>
             <button className={s.logoutButton} onClick={()=>userOff()}>logout</button>
+            <button className={s.makeTeamButton} onClick={()=>setIsNewTeam(true)}>새로운 Team 만들기</button>
         </section>
         <section className={s.rightWrap}>
             <div className={s.roomNowWrap}>
@@ -27,7 +29,7 @@ const Rooms = ({user,userOff,roomsAll,goRoomNew,goRoomNow}:Props) => {
                 {
                     Object.keys(roomsAll).filter((roomId)=>{
                         if(user.rooms){
-                            if(user.rooms[roomId]){
+                            if(user.rooms[roomId]!==undefined){
                                 return true
                             }else{
                                 return false
