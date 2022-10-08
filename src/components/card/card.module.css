@@ -76,6 +76,11 @@
     display: flex;
     align-items: center;
 }
+.check_button_enabled{
+    width: 16px;
+    height: 16px;
+    border-radius: 10px;
+}
 .check_button{
     width: 16px;
     height: 16px;
@@ -141,4 +146,31 @@
 }
 .todo_content.clear{
     color: #fff;
+}
+.todo_content.show{
+    display: none;
+}
+.todo_content.hide{
+    display: block;
+}
+.todoItem_input{
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 19px;
+    color: #4A4A4A;
+    padding-left: 10px;
+    border: none;
+    background: none;
+}
+.todoItem_input.show{
+    display: none;
+}
+.todoItem_input.hide{
+    display: block;
+}
+.todoItem_input.clear{
+    color: #fff;
+}
+.todoItem_input:focus{
+    outline: none;
 }
