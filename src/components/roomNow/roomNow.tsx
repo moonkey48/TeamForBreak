@@ -1,9 +1,9 @@
 import React from 'react';
-import { RoomT } from '../../types/roomType';
+import { RoomInfoT } from '../../types/roomType';
 import s from './roomNow.module.css';
 
 type Props = {
-    room:RoomT,
+    room:RoomInfoT,
     goRoomNow:(roomId:string)=>void;
 }
 const RoomNow = ({room,goRoomNow}:Props) => {

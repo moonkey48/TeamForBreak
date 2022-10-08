@@ -1,16 +1,15 @@
 import React from 'react';
+import s from './Edit.module.css';
 
 const Edit = () => {
-    return <>
-    <ul>
-        <li>1. 팀 title 변경</li>
-        <li>2. 팀 description 변경</li>
-        <li>3. 팀 목표 날짜 변경</li>
-        <li>4. 모인 금액 리셋</li>
-        <li>5. 모인 금액 누적 액수(개인별)</li>
-        <li>6. 팀 종료</li>
-    </ul>
-    </>
+    return <div className={s.container}>
+        <div className={s.editBox}>
+            <dl>
+                <dt>Title</dt>
+                <dd></dd>
+            </dl>
+        </div>
+    </div>
     
 }
 

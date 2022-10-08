@@ -29,7 +29,10 @@ const RoomsContainer = ({firebaseAuth,user,userOff,roomsAll}:Props) => {
     }
     const goRoomNew = (roomId:string, roomPw:string, inputValue:string) =>{
         if(checkPassword(roomPw,inputValue)){
-            user.rooms!.push(roomId);
+            user.rooms!.roomId = {
+                todoList:[],
+                theme:'green'
+            };
             navigate({
                 pathname:'/Main',
                 search:`?${roomId}`

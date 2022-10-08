@@ -24,9 +24,7 @@ export class AuthService implements AuthServiceI{
                 name:user.displayName as string,
                 email:user.email as string,
                 uid:user.uid,
-                todoList:[],
-                theme:'green',
-                rooms:['room2']
+                rooms:{}
             })
         }).catch((error) => {
             // const errorCode = error.code;

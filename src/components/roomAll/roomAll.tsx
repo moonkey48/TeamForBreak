@@ -1,9 +1,9 @@
 import React, { useRef, useState } from 'react';
-import { RoomT } from '../../types/roomType';
+import { RoomInfoT } from '../../types/roomType';
 import s from './roomAll.module.css';
 
 type Props = {
-    room:RoomT;
+    room:RoomInfoT;
     goRoomNew:(roomId:string, roomPw:string,inputValue:string)=>boolean;
 }
 const RoomAll = ({room,goRoomNew}:Props) => {

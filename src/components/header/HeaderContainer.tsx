@@ -1,11 +1,13 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { RoomInfoT } from '../../types/roomType';
 import Header from './Header';
 
 type Props ={
+    roomInfo:RoomInfoT | undefined;
     userOff:()=>void;
 }
-const HeaderContainer = ({userOff}:Props) => {
+const HeaderContainer = ({userOff,roomInfo}:Props) => {
     const navigate = useNavigate();
     const handelLogout = () =>{
         userOff();
@@ -18,7 +20,7 @@ const HeaderContainer = ({userOff}:Props) => {
         navigate('/Edit');
     }
     return(
-        <Header handelLogout={handelLogout} handleGoRoom={handleGoRoom} handleGoEdit={handleGoEdit}/>
+        <Header roomInfo={roomInfo} handelLogout={handelLogout} handleGoRoom={handleGoRoom} handleGoEdit={handleGoEdit}/>
     )
 }
 

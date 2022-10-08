@@ -3,19 +3,21 @@ import s from './Main.module.css';
 import HeaderContainer from '../../components/header/HeaderContainer';
 import CardsContainer from '../../components/cards/CardsContainer';
 import {Users} from '../../types/userType';
+import { RoomInfoT } from '../../types/roomType';
 
 type Props = {
-    userInfo: Users;
+    userAll: Users;
+    roomInfo:RoomInfoT;
     userOff:()=>void;
-    checkItem:(id:string , index:number)=>void;
+    checkItem:(id:string ,roomId:string, index:number)=>void;
 }
 
-const Main = ({userInfo,checkItem,userOff}:Props) => {
+const Main = ({userAll,checkItem,userOff,roomInfo}:Props) => {
     const inputRef = useRef<HTMLInputElement>(null);
     const formRef = useRef<HTMLFormElement>(null);
     return <div className={s.container}>
-        <HeaderContainer userOff={userOff}/>
-        <CardsContainer userInfo={userInfo} checkItem={checkItem} />
+        <HeaderContainer userOff={userOff} roomInfo={roomInfo}/>
+        <CardsContainer userAll={userAll} checkItem={checkItem} roomInfo={roomInfo} />
         {/* <main>
             <form ref={formRef}>
                 <label htmlFor="addTodo">추가하기</label>

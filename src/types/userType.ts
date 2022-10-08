@@ -8,10 +8,12 @@ export type UserLogin ={
     email:string;
 }
 export type Theme = 'green' | 'orange' | 'pink' | 'yellow';
-export type UserData ={
+export type UserRoomData = {
     todoList:Todo[];
     theme:Theme;
-    rooms?:string[];
+}
+export type UserData ={
+    rooms:{[roomId:string]:UserRoomData};
 }
 export type User = UserLogin & UserData;
 export type Users = {

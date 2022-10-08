@@ -4,28 +4,30 @@ import s from './card.module.css';
 
 type Props = {
     user:User;
-    checkItem:(id:string , index:number)=>void;
+    roomId:string;
+    checkItem:(id:string ,roomId:string, index:number)=>void;
 }
 
-const Card = ({user,checkItem}:Props) => {
+const Card = ({user,roomId,checkItem}:Props) => {
     const [clear,setClear] = useState(false);
     useEffect(()=>{
         let result = true;
-        user.todoList.map((todo)=>{
-            if(todo.done===false){
-                result = false;
+        if(user.rooms){
+            user.rooms[roomId].todoList.map((todo)=>{
+                if(todo.done===false){
+                    result = false;
+                }
+            })
+            if(user.rooms[roomId].todoList.length===0){
+                result= false;
             }
-        })
-        if(user.todoList.length===0){
-            result= false;
         }
-        console.log(result);
         setClear(result);
     },[checkItem]);
 
-    return <li className={`${s.card} ${clear?s[user.theme]:''}`} key={user.uid}>
+    return <li className={`${s.card} ${clear?s[user.rooms[roomId].theme]:''}`} key={user.uid}>
         <div className={s.cardHeader}>
-            <div className={`${s.nameBox} ${s[user.theme]}`}>
+            <div className={`${s.nameBox} ${s[user.rooms[roomId].theme]}`}>
                 <h3 className={`${s.name} ${clear===true?s.clear:''}`}>{user.name}</h3>
             </div>
             <div className={`${s.clearBox} ${clear===true?s.clear:''}`}>
@@ -37,16 +39,16 @@ const Card = ({user,checkItem}:Props) => {
         </div>
         {
             <ul className={s.todoList}>
-                {user.todoList.map((todo,index)=>{
+                {user.rooms[roomId].todoList.map((todo,index)=>{
                     return <li className={s.todoItem} key={index}>
                         <div className={s.leftBox}>
-                            <button onClick={()=>checkItem(user.uid,index)} className={`${s.check_button} ${todo.done?s.checked:s.unchecked} ${s[user.theme]}`}></button>
+                            <button onClick={()=>checkItem(user.uid,roomId,index)} className={`${s.check_button} ${todo.done?s.checked:s.unchecked} ${s[user.rooms[roomId].theme]}`}></button>
                             <h5 className={`${s.todo_content} ${clear===true?s.clear:''}`}>{todo.content}</h5>
                         </div>
                     </li>
                 })
                 }
-                {user.todoList.length === 0 ?<li className={s.todoItem} key={1}>
+                {user.rooms[roomId].todoList.length === 0 ?<li className={s.todoItem} key={1}>
                         <div className={s.leftBox}>
                             <h5 className={`${s.todo_content}`} style={{fontSize: '14px'}}>아직 {user.name}님이 목표를 적지 않았네요 🙃</h5>
                         </div>

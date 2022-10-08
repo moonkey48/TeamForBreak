@@ -1,17 +1,19 @@
 import React from 'react';
+import { RoomInfoT } from '../../types/roomType';
 import { Users } from '../../types/userType';
 import Card from '../card/card';
 import s from './Cards.module.css';
 
 type Props = {
-    userInfo:Users;
-    checkItem:(id:string , index:number)=>void;
+    userAll:Users;
+    roomInfo:RoomInfoT;
+    checkItem:(id:string ,roomId:string, index:number)=>void;
 }
-const Cards = ({userInfo,checkItem}:Props) => {
+const Cards = ({userAll,roomInfo,checkItem}:Props) => {
     return <div className={s.CardsBox}>
         <ul className={s.CardList}>
-            {Object.keys(userInfo).map((key)=>{
-                return <Card user={userInfo[key]} key={key} checkItem={checkItem}/>
+            {roomInfo.memberIds.map((userId,idx)=>{
+                return <Card user={userAll[userId]} roomId={roomInfo.roomId} key={idx} checkItem={checkItem}/>
             })}
         </ul>
     </div>

@@ -25,16 +25,16 @@ const Rooms = ({user,userOff,roomsAll,goRoomNew,goRoomNow}:Props) => {
                 <h3 className={s.main_title}>현재 참여중인 Team</h3>
                 <ul className={s.roomNow_list}>
                 {
-                    roomsAll.filter((room)=>{
+                    Object.keys(roomsAll).filter((roomId)=>{
                         if(user.rooms){
-                            if(user.rooms.includes(room.roomId)){
+                            if(user.rooms[roomId]){
                                 return true
                             }else{
                                 return false
                             }
                         }
-                    }).map((room,idx)=>{
-                        return <RoomNow goRoomNow={goRoomNow} key={idx} room={room}/>
+                    }).map((roomId,idx)=>{
+                        return <RoomNow goRoomNow={goRoomNow} key={idx} room={roomsAll[roomId]}/>
                     })
                 }
                 </ul>
@@ -43,8 +43,8 @@ const Rooms = ({user,userOff,roomsAll,goRoomNew,goRoomNow}:Props) => {
                 <h3 className={s.main_title}>진행중인 모든 Team</h3>
                 <ul className={s.roomAll_list}>
                 {
-                    roomsAll.map((room,idx)=>{
-                        return <RoomAll goRoomNew={goRoomNew} key={idx} room={room}/>
+                    Object.keys(roomsAll).map((roomId,idx)=>{
+                        return <RoomAll goRoomNew={goRoomNew} key={idx} room={roomsAll[roomId]}/>
                     })
                 }
                 </ul>

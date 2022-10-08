@@ -1,6 +1,6 @@
 import { Theme } from './userType';
 
-export type RoomT = { 
+export type RoomInfoT = { 
     title:string,
     description:string,
     progress:number,
@@ -8,6 +8,11 @@ export type RoomT = {
     password:string,
     theme:Theme,
     member:string[],
-    //member uid array
+    memberIds:string[],
+    day:string;
+    fine_total:number;
+    fine_each:{[memberName:string]:number};
 }
-export type RoomsT = Array<RoomT>
+export type RoomsT ={
+    [roomId:string]:RoomInfoT;
+}
