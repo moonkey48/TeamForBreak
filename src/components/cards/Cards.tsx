@@ -14,7 +14,7 @@ type Props = {
 const Cards = ({userAll,user,roomInfo,changeItem,checkItem}:Props) => {
     return <div className={s.CardsBox}>
         <ul className={s.CardList}>
-            {roomInfo.memberIds.map((userId,idx)=>{
+            {Object.keys(roomInfo.memberIds).map((userId,idx)=>{
                 return <Card user={user} changeItem={changeItem} cardUser={userAll[userId]} roomId={roomInfo.roomId} key={idx} checkItem={checkItem}/>
             })}
         </ul>

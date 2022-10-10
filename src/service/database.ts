@@ -33,7 +33,7 @@ export class Database implements DatabaseI{
         get(child(dbRef, 'users/' + uid)).then((snapshot) => {
             if (snapshot.exists()) {
                 setUser(snapshot.val())
-                console.log(snapshot.val());
+                // console.log(snapshot.val());
             } else {
               console.log("No data available");
             }
@@ -46,7 +46,7 @@ export class Database implements DatabaseI{
         get(child(dbRef, 'users/')).then((snapshot) => {
             if (snapshot.exists()) {
                 setUserAll(snapshot.val())
-                console.log(snapshot.val());
+                // console.log(snapshot.val());
             } else {
               console.log("No data available");
             }
@@ -59,7 +59,7 @@ export class Database implements DatabaseI{
         get(child(dbRef, 'rooms/')).then((snapshot) => {
             if (snapshot.exists()) {
                 setRoomsAll(snapshot.val())
-                console.log(snapshot.val());
+                // console.log(snapshot.val());
             } else {
               console.log("No data available");
             }

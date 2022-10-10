@@ -44,11 +44,8 @@ function App() {
   }
   //
   const joinNewRoom = (userId:string, roomId:string)=>{
-    console.log('user')
     let updatedUser = {...user};
-    updatedUser.rooms = {
-      ...updatedUser.rooms,
-      [roomId]:{
+    updatedUser.rooms[roomId] = {
         theme:'green',
         todoList:[
           {
@@ -56,31 +53,22 @@ function App() {
             content:'도전할 목표를 설정해보세요.'
           }
         ]
-      }
     }
-    console.log('users')
     let updatedUsers = {...userAll};
     updatedUsers[userId] = {...updatedUser};
     setUserAll(updatedUsers);
-    console.log('rooms')
 
     let updatedRooms = {...roomsAll};
-
-    updatedRooms[roomId].member.push(userAll[userId].name);
-    updatedRooms[roomId].memberIds.push(userId);
+    updatedRooms[roomId].member[user.name] = user.name;
+    updatedRooms[roomId].memberIds[user.uid] = user.uid;
+    
     setRoomsAll(updatedRooms)
-
 
     //Firebase
       database.updateUser(setUser, userId, updatedUsers[userId]);
       database.updateRoom(roomId,updatedRooms[roomId])
 
-
-    //유저 정보 수정후
-    //set userAll
-    //firebase update userInfo
-    //set roomsAll
-    //firebase update roomInfo
+      return true;
   }
 
 
@@ -93,8 +81,8 @@ function App() {
       roomId:`${Date.now()}`,
       password:`hello ${user.name}`,
       theme:'green',
-      member:[uid],
-      memberIds:[uid],
+      member:{[user.name]:user.name},
+      memberIds:{uid:uid},
       startTime:Date.now(),
       endTime:getTimeEnd(year,month,day),
       remain:calculateTime(Date.now(),getTimeEnd(year,month,day)),
@@ -105,12 +93,7 @@ function App() {
     let updated = {...roomsAll};
     updated[newTeam.roomId] = newTeam;
     setRoomsAll(updated);
-    //setRoomsAll State
-    //setUserAll userId
-    //update firebase Room data;
-    //update firebase User Data;
 
-    //for navigating to new room
     return newTeam.roomId;
   }
 
@@ -156,6 +139,12 @@ function App() {
     database.readUsersAll(setUserAll);
     database.readRoomsAll(setRoomsAll);
   },[]);
+  useEffect(()=>{
+    // Object.keys(userAll).map(uid=>{
+    //   console.log(userAll[uid].rooms)
+    //   Object.keys(userAll[uid].rooms).map(key=>console.log(userAll[uid].rooms[key])); 
+    // })
+  },[userAll])
 
   
   return (

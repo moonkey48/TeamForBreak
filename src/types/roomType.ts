@@ -6,8 +6,8 @@ export type RoomInfoT = {
     roomId:string,
     password:string,
     theme:Theme,
-    member:string[],
-    memberIds:string[],
+    member:{[userName:string]:string},
+    memberIds:{[userId:string]:string},
     startTime:number,
     endTime:number,
     remain:number;

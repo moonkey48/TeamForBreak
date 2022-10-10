@@ -20,8 +20,8 @@ const MainContainer = ({userAll,user,roomsAll,userOff,changeItem,checkItem}:Prop
       roomId:'',
       password:'',
       theme:'green',
-      member:[],
-      memberIds:[],
+      member:{},
+      memberIds:{},
       startTime:1669762400000,
       endTime:1669766400000,
       remain:0,
@@ -29,12 +29,9 @@ const MainContainer = ({userAll,user,roomsAll,userOff,changeItem,checkItem}:Prop
       fine_per_day:10000,
       fine_each:{},
     });
-    const [roomMembers, setRoomMembers] = useState<Users>();
     useEffect(()=>{
       const roomId =  location.search.replace('?','');
       setRoomInfo(roomsAll[roomId]);
-      const userIds:string[] = roomsAll[roomId].memberIds;
-      
     },[]);
     return <Main userOff={userOff} user={user} userAll={userAll} roomInfo={roomInfo} changeItem={changeItem} checkItem={checkItem} />
 }

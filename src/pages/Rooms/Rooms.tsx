@@ -10,10 +10,11 @@ type Props ={
     userOff:()=>void;
     roomsAll:RoomsT;
     setIsNewTeam: React.Dispatch<React.SetStateAction<boolean>>;
-    goRoomNew:(roomId:string, roomPw:string,inputValue:string)=>boolean;
+    goRoomNew:(roomId:string, roomPw:string,inputValue:string)=>void;
     goRoomNow:(roomId:string)=>void;
+    checkPassword:(roomPw:string, inputValue:string)=>boolean;
 }
-const Rooms = ({user,userOff,roomsAll,goRoomNew,goRoomNow,setIsNewTeam}:Props) => {
+const Rooms = ({user,userOff,roomsAll,goRoomNew,goRoomNow,setIsNewTeam,checkPassword}:Props) => {
     
     return <div className={s.container}>
         <section className={s.leftWrap}>
@@ -26,10 +27,17 @@ const Rooms = ({user,userOff,roomsAll,goRoomNew,goRoomNow,setIsNewTeam}:Props) =
             <div className={s.roomNowWrap}>
                 <h3 className={s.main_title}>현재 참여중인 Team</h3>
                 <ul className={s.roomNow_list}>
-                {
+                {/* {
                     Object.keys(user.rooms).map((roomId,idx)=>{
                         return <RoomNow goRoomNow={goRoomNow} key={idx} room={roomsAll[roomId]}/>
                     })
+                } */}
+                {
+                    user.rooms!==undefined?
+                    Object.keys(user.rooms).map((roomId,idx)=>{
+                        return <RoomNow goRoomNow={goRoomNow} key={idx} room={roomsAll[roomId]} />
+                    })
+                    :''
                 }
                 </ul>
             </div>
@@ -38,7 +46,7 @@ const Rooms = ({user,userOff,roomsAll,goRoomNew,goRoomNow,setIsNewTeam}:Props) =
                 <ul className={s.roomAll_list}>
                 {
                     Object.keys(roomsAll).map((roomId,idx)=>{
-                        return <RoomAll goRoomNew={goRoomNew} key={idx} room={roomsAll[roomId]}/>
+                        return <RoomAll checkPassword={checkPassword} goRoomNew={goRoomNew} key={idx} room={roomsAll[roomId]}/>
                     })
                 }
                 </ul>

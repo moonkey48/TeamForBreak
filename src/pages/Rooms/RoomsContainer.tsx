@@ -11,7 +11,7 @@ type Props ={
     user:User;
     userOff:()=>void;
     roomsAll:RoomsT;
-    joinNewRoom:(userId:string, roomId:string)=>void;
+    joinNewRoom:(userId:string, roomId:string)=>boolean;
     makeTeam:(
         title:string, 
         description:string, 
@@ -31,24 +31,19 @@ const RoomsContainer = ({firebaseAuth,user,userOff,roomsAll,makeTeam,joinNewRoom
         });
     }
     const checkPassword = (roomPw:string, inputValue:string) =>{
-        console.log(roomPw);
-            console.log(inputValue);
         if(roomPw===inputValue){
             return true;
         }
         return false;
     }
     const goRoomNew = (roomId:string, roomPw:string, inputValue:string) =>{
-        if(checkPassword(roomPw,inputValue)){
-            joinNewRoom(user.uid, roomId);
+         if(joinNewRoom(user.uid, roomId)){
+            console.log(roomsAll);
             navigate({
                 pathname:'/Main',
                 search:`?${roomId}`
-            });
-            return true;
-        }else{
-            return false;
-        }
+            });  
+         }
     }
     
     useEffect(()=>{
@@ -56,8 +51,9 @@ const RoomsContainer = ({firebaseAuth,user,userOff,roomsAll,makeTeam,joinNewRoom
             navigate('/')
         }
     },[user]);
+    
     return <>
-    <Rooms user={user} userOff={userOff} goRoomNow={goRoomNow} goRoomNew={goRoomNew} roomsAll={roomsAll} setIsNewTeam={setIsNewTeam} />
+    <Rooms user={user} userOff={userOff} goRoomNow={goRoomNow} goRoomNew={goRoomNew} roomsAll={roomsAll} setIsNewTeam={setIsNewTeam} checkPassword={checkPassword} />
     {isNewTeam?<MakeRoom user={user} makeTeam={makeTeam} setIsNewTeam={setIsNewTeam}/>:''}
     </>
 }

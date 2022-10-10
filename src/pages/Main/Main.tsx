@@ -15,8 +15,7 @@ type Props = {
 }
 
 const Main = ({userAll,user,checkItem,userOff,changeItem,roomInfo}:Props) => {
-    const inputRef = useRef<HTMLInputElement>(null);
-    const formRef = useRef<HTMLFormElement>(null);
+
     return <div className={s.container}>
         <HeaderContainer userOff={userOff} roomInfo={roomInfo}/>
         <CardsContainer user={user} userAll={userAll} changeItem={changeItem} checkItem={checkItem} roomInfo={roomInfo} />

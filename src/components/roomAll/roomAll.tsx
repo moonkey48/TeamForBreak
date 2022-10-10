@@ -4,9 +4,10 @@ import s from './roomAll.module.css';
 
 type Props = {
     room:RoomInfoT;
-    goRoomNew:(roomId:string, roomPw:string,inputValue:string)=>boolean;
+    goRoomNew:(roomId:string, roomPw:string,inputValue:string)=>void;
+    checkPassword:(roomPw:string, inputValue:string)=>boolean;
 }
-const RoomAll = ({room,goRoomNew}:Props) => {
+const RoomAll = ({room,goRoomNew,checkPassword}:Props) => {
     const formRef = useRef<HTMLFormElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
     const [placeholder, setPlaceHolder] = useState('스타터에게 코드를 공유받으세요.')
@@ -28,7 +29,9 @@ const RoomAll = ({room,goRoomNew}:Props) => {
         </form> 
     </div>
     <button onClick={()=>{
-        if(!goRoomNew(room.roomId,room.password,inputRef.current!.value)){
+        if(checkPassword(room.password, inputRef.current!.value)){
+            goRoomNew(room.roomId,room.password,inputRef.current!.value)
+        }else{
             setPlaceHolder('잘못된 코드입니다.');
         }
         formRef.current!.reset();
