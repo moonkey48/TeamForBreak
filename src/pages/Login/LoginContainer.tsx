@@ -17,13 +17,6 @@ const LoginContainer = ({firebaseAuth,user,userOn}:Props) => {
             navigate('/Rooms');
         }
     },[user])
-    useEffect(()=>{
-        const startTime = 1665221258400;
-        const goal = Date.UTC(2022,10,30);
-        console.log(goal);
-        const result = Math.floor(((goal-Date.now())/1000/60/60/24)-30);//day
-        console.log(result);
-    },[]);
     
     const handleSignIn = async() =>{
         firebaseAuth.signIn(userOn);

@@ -20,23 +20,6 @@ const Main = ({userAll,user,checkItem,userOff,changeItem,roomInfo}:Props) => {
     return <div className={s.container}>
         <HeaderContainer userOff={userOff} roomInfo={roomInfo}/>
         <CardsContainer user={user} userAll={userAll} changeItem={changeItem} checkItem={checkItem} roomInfo={roomInfo} />
-        {/* <main>
-            <form ref={formRef}>
-                <label htmlFor="addTodo">추가하기</label>
-                <input ref={inputRef} type="addTodo" name="addTodo" id="addTodo"></input>
-                <button onClick={(e)=>{
-                    e.preventDefault();
-                    console.log(inputRef.current!.value);
-                    formRef.current?.reset();
-                } }>ADD</button>
-            </form>
-            <ul>{todos.map((item:string,idx:number)=>{
-                return <li key={idx}>
-                    <h1>{item}</h1>
-                    <button onClick={()=>deleteItem(idx)}>X</button>
-                </li>
-            })}</ul>
-        </main> */}
     </div>
 }
 

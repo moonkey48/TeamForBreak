@@ -26,6 +26,7 @@ const MainContainer = ({userAll,user,roomsAll,userOff,changeItem,checkItem}:Prop
       endTime:1669766400000,
       remain:0,
       fine_total:0,
+      fine_per_day:10000,
       fine_each:{},
     });
     const [roomMembers, setRoomMembers] = useState<Users>();
@@ -33,6 +34,7 @@ const MainContainer = ({userAll,user,roomsAll,userOff,changeItem,checkItem}:Prop
       const roomId =  location.search.replace('?','');
       setRoomInfo(roomsAll[roomId]);
       const userIds:string[] = roomsAll[roomId].memberIds;
+      
     },[]);
     return <Main userOff={userOff} user={user} userAll={userAll} roomInfo={roomInfo} changeItem={changeItem} checkItem={checkItem} />
 }

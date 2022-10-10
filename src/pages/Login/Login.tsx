@@ -24,8 +24,7 @@ const Login = ({onSignIn,alert}:Props) => {
             <path d="M177 136.231H161.782L150.545 146.964V120.736H139.629V168.365H150.545V161.443L154.655 157.505L163.451 168.365H177L162.36 150.202L177 136.231Z" fill="white"/>
         </svg>
         <div className={s.loginBox}>
-            <h3 className={s.loginTitle}>로그인하기</h3>
-            <button onClick={()=>onSignIn()} className={s.loginButton}>Google</button>
+            <h3 onClick={()=>onSignIn()} className={s.loginTitle}>로그인하기</h3>
         </div>
         <h1 className={`${s.alert} ${alert!==''?s.show:''}`}>{alert}</h1>
     </div>

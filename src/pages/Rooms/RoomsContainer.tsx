@@ -11,8 +11,17 @@ type Props ={
     user:User;
     userOff:()=>void;
     roomsAll:RoomsT;
+    joinNewRoom:(userId:string, roomId:string)=>void;
+    makeTeam:(
+        title:string, 
+        description:string, 
+        year:number,
+        month:number,
+        day:number,
+        fine:number,
+        uid:string)=>string;
 }
-const RoomsContainer = ({firebaseAuth,user,userOff,roomsAll}:Props) => {
+const RoomsContainer = ({firebaseAuth,user,userOff,roomsAll,makeTeam,joinNewRoom}:Props) => {
     const navigate = useNavigate();
     const [isNewTeam,setIsNewTeam] = useState(false); 
     const goRoomNow = (roomId:string) =>{
@@ -31,10 +40,7 @@ const RoomsContainer = ({firebaseAuth,user,userOff,roomsAll}:Props) => {
     }
     const goRoomNew = (roomId:string, roomPw:string, inputValue:string) =>{
         if(checkPassword(roomPw,inputValue)){
-            user.rooms!.roomId = {
-                todoList:[],
-                theme:'green'
-            };
+            joinNewRoom(user.uid, roomId);
             navigate({
                 pathname:'/Main',
                 search:`?${roomId}`
@@ -44,6 +50,7 @@ const RoomsContainer = ({firebaseAuth,user,userOff,roomsAll}:Props) => {
             return false;
         }
     }
+    
     useEffect(()=>{
         if(user.uid===''){
             navigate('/')
@@ -51,7 +58,7 @@ const RoomsContainer = ({firebaseAuth,user,userOff,roomsAll}:Props) => {
     },[user]);
     return <>
     <Rooms user={user} userOff={userOff} goRoomNow={goRoomNow} goRoomNew={goRoomNew} roomsAll={roomsAll} setIsNewTeam={setIsNewTeam} />
-    {isNewTeam?<MakeRoom/>:''}
+    {isNewTeam?<MakeRoom user={user} makeTeam={makeTeam} setIsNewTeam={setIsNewTeam}/>:''}
     </>
 }
 

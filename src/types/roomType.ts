@@ -12,6 +12,7 @@ export type RoomInfoT = {
     endTime:number,
     remain:number;
     fine_total:number;
+    fine_per_day:number;
     fine_each:{[memberName:string]:number};
 }
 export type RoomsT ={

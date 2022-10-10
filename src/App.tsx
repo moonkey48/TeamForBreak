@@ -1,16 +1,19 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
 import './App.css';
 import EditContainer from './pages/Edit/EditContainer';
 import LoginContainer from './pages/Login/LoginContainer';
 import MainContainer from './pages/Main/MainContainer';
 import RoomsContainer from './pages/Rooms/RoomsContainer';
+import { calculateTime, getTimeEnd } from './service/calculator';
+import {Database} from './service/database';
 import app from './service/firebase';
 import {AuthService} from './service/firebaseAuth';
-import { RoomsT } from './types/roomType';
+import { RoomInfoT, RoomsT } from './types/roomType';
 import { User, UserLogin, Users } from './types/userType';
 
 const firebaseAuth = new AuthService(app);
+const database = new Database(app);
 
 function App() {
   const [user, setUser] = useState<User>({
@@ -19,149 +22,118 @@ function App() {
     email:'',
     rooms:{}
   })
-  const roomsAll:RoomsT ={
-    'room1':{
-          title:'Daily Design',
-          description:'A graphic design team for breaking 3D modeling skill.',
-          roomId:'room1',
-          password:'pw_room1',
-          theme:'green',
-          member:['austin','lizzy'],
-          memberIds:['id1','id2'],
-          startTime:1669762400000,
-          endTime:1669766400000,
-          remain:40,
-          fine_total:30000,
-          fine_each:{'austin':10000,'lizzy':20000,},
-    },
-    'room2':{
-          title:'Log the Day',
-          description:'오늘의 코드가 미래의 나를 살린다.',
-          roomId:'room2',
-          password:'pw_room2',
-          theme:'orange',
-          member:['seven','moonkey'],
-          memberIds:['id3','id4'],
-          startTime:1669762400000,
-          endTime:1669766400000,
-          remain:10,
-          fine_total:10000,
-          fine_each:{'seven':0,'moonkey':10000,},
-    },
-    'room3':{
-        title:'Book Book',
-        description:'매일의 한줌 나눔',
-        roomId:'room3',
-        password:'pw_room3',
-        theme:'pink',
-        member:['zelly','lily'],
-        memberIds:['id5','id6'],
-        startTime:1669762400000,
-        endTime:1669766400000,
-        remain:30,
-        fine_total:30000,
-        fine_each:{'zelly':10000,'lily':20000,},
-    },
-  }
-  const [userAll,setUserAll] = useState<Users>({
-      'id1':{
-        name:'austin',
-        uid:'id1',
-        email:'gogo4905@gmail.com',
-        rooms:{
-          'room1':{
-            theme:'green',
-            todoList:[
-              {content:'Daily Coding',done:false},
-              {content:'CS Research',done:false},
-            ],
-          }
-        }
-      },
-      'id2':{
-        name:'lizzy',
-        uid:'id2',
-        email:'gogo4905@gmail.com',
-        rooms:{
-          'room1':{
-            theme:'yellow',
-            todoList:[
-              {content:'UX 리서치',done:false},
-              {content:'포트폴리오 완성',done:false},
-            ],
-          }
-        }
-      },
-      'id3':{
-        name:'Seven',
-        uid:'id3',
-        email:'gogo4905@gmail.com',
-        rooms:{
-          'room2':{
-            theme:'pink',
-            todoList:[
-              {content:'UX 리서치',done:false},
-              {content:'포트폴리오 완성',done:false},
-            ],
-          }
-        }
-      },
-      'id4':{
-        name:'moonkey',
-        uid:'id4',
-        email:'gogo4905@gmail.com',
-        rooms:{
-          'room2':{
-            theme:'orange',
-            todoList:[],
-          }
-        }
-      },
-      'id5':{
-        name:'zelly',
-        uid:'id5',
-        email:'gogo4905@gmail.com',
-        rooms:{
-          'room3':{
-            theme:'green',
-            todoList:[
-              {content:'브랜딩 미메시스',done:false},
-              {content:'포트폴리오 완성',done:false},
-            ],
-          }
-        }
-      },
-      'id6':{
-        name:'lily',
-        uid:'id6',
-        email:'gogo4905@gmail.com',
-        rooms:{
-          'room3':{
-            theme:'yellow',
-            todoList:[
-              // {content:'UI 미메시스',done:false},
-              // {content:'포트폴리오 완성',done:false},
-            ],
-          }
-        }
-      },
-    })
+  const [roomsAll,setRoomsAll] = useState<RoomsT>({})
+  const [userAll,setUserAll] = useState<Users>({})
+
+  //toDolist Check
   const checkItem = (id:string ,roomId:string, index:number) =>{
       let updated = {...userAll};
       updated[id].rooms[roomId].todoList[index].done = updated[id].rooms[roomId].todoList[index].done===true?false:true;
       setUserAll(updated);
+      //update user all 
+      //firebase update user
   }
+
+  //toDoList 내용 수정
   const changeItem = (id:string ,roomId:string, index:number, content:string) =>{
     let updated = {...userAll};
     updated[id].rooms[roomId].todoList[index].content = content;
     setUserAll(updated);
-}
+    //update user All 
+    //firebase update user data
+  }
+  //
+  const joinNewRoom = (userId:string, roomId:string)=>{
+    console.log('user')
+    let updatedUser = {...user};
+    updatedUser.rooms = {
+      ...updatedUser.rooms,
+      [roomId]:{
+        theme:'green',
+        todoList:[
+          {
+            done:false,
+            content:'도전할 목표를 설정해보세요.'
+          }
+        ]
+      }
+    }
+    console.log('users')
+    let updatedUsers = {...userAll};
+    updatedUsers[userId] = {...updatedUser};
+    setUserAll(updatedUsers);
+    console.log('rooms')
+
+    let updatedRooms = {...roomsAll};
+
+    updatedRooms[roomId].member.push(userAll[userId].name);
+    updatedRooms[roomId].memberIds.push(userId);
+    setRoomsAll(updatedRooms)
+
+
+    //Firebase
+      database.updateUser(setUser, userId, updatedUsers[userId]);
+      database.updateRoom(roomId,updatedRooms[roomId])
+
+
+    //유저 정보 수정후
+    //set userAll
+    //firebase update userInfo
+    //set roomsAll
+    //firebase update roomInfo
+  }
+
+
+
+  const makeTeam = (title:string, description:string, year:number, month:number, day:number,
+      fine:number,uid:string) =>{
+    const newTeam:RoomInfoT = {
+      title,
+      description,
+      roomId:`${Date.now()}`,
+      password:`hello ${user.name}`,
+      theme:'green',
+      member:[uid],
+      memberIds:[uid],
+      startTime:Date.now(),
+      endTime:getTimeEnd(year,month,day),
+      remain:calculateTime(Date.now(),getTimeEnd(year,month,day)),
+      fine_total:0,
+      fine_per_day:fine,
+      fine_each:{uid:0,},
+    }
+    let updated = {...roomsAll};
+    updated[newTeam.roomId] = newTeam;
+    setRoomsAll(updated);
+    //setRoomsAll State
+    //setUserAll userId
+    //update firebase Room data;
+    //update firebase User Data;
+
+    //for navigating to new room
+    return newTeam.roomId;
+  }
+
+  //Login
   const userOn = (loginResult:User)=>{
     console.log(loginResult);
     if(loginResult.uid!==null){
-      setUser(loginResult);
+      //기존 데이터가 없는 경우
+      if(userAll[loginResult.uid]===undefined){
+        const newUser = {
+          name:loginResult.name,
+          uid:loginResult.uid,
+          email:loginResult.email,
+          rooms:{}
+        }
+        database.updateUser(setUser,loginResult.uid, newUser)
+      }else{
+        //기존 데이터가 있는 경우
+        database.readUser(setUser, loginResult.uid);
+      }
     }
   }
+  //Logout
   const userOff = ()=>{
     setUser({
       name:'',
@@ -170,11 +142,27 @@ function App() {
       rooms:{}
     });
   }
+  //각 팀별 제한 기간 계산
+  const updateDateAll = () =>{
+    let updated = {...roomsAll};
+    Object.keys(updated).map((key)=>{
+      updated[key].remain = calculateTime(Date.now(), updated[key].endTime);
+    })
+    setRoomsAll(updated);
+  }
+  useEffect(()=>{
+    //모든 데이터 정리 및 모든 user, room 데이터 가져오기 
+    updateDateAll();
+    database.readUsersAll(setUserAll);
+    database.readRoomsAll(setRoomsAll);
+  },[]);
+
+  
   return (
     <BrowserRouter>
     <Routes>
       <Route path='/' element={<LoginContainer user={user} userOn={userOn} firebaseAuth={firebaseAuth}/>} />
-      <Route path='/Rooms' element={<RoomsContainer userOff={userOff} user={user} roomsAll={roomsAll} firebaseAuth={firebaseAuth}/>} />
+      <Route path='/Rooms' element={<RoomsContainer joinNewRoom={joinNewRoom} makeTeam={makeTeam} userOff={userOff} user={user} roomsAll={roomsAll} firebaseAuth={firebaseAuth}/>} />
       <Route path='/Main' element={<MainContainer user={user} roomsAll={roomsAll} userOff={userOff} userAll={userAll} checkItem={checkItem} changeItem={changeItem}/>}/>
       <Route path='/Edit' element={<EditContainer/>} />
     </Routes>

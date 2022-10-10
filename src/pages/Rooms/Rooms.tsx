@@ -27,15 +27,7 @@ const Rooms = ({user,userOff,roomsAll,goRoomNew,goRoomNow,setIsNewTeam}:Props) =
                 <h3 className={s.main_title}>현재 참여중인 Team</h3>
                 <ul className={s.roomNow_list}>
                 {
-                    Object.keys(roomsAll).filter((roomId)=>{
-                        if(user.rooms){
-                            if(user.rooms[roomId]!==undefined){
-                                return true
-                            }else{
-                                return false
-                            }
-                        }
-                    }).map((roomId,idx)=>{
+                    Object.keys(user.rooms).map((roomId,idx)=>{
                         return <RoomNow goRoomNow={goRoomNow} key={idx} room={roomsAll[roomId]}/>
                     })
                 }

@@ -20,16 +20,11 @@
     font-size: 20px;
     color: #FFFFFF;
     padding-bottom: 20px;
+    cursor: pointer;
+    transition: 0.3s color;
 }
-.loginBox .loginButton{
-    width: 148px;
-    height: 40px;
-    background: #FFFFFF;
-    border-radius: 5px;
-    border: none;
-    font-weight: 700;
-    font-size: 20px;
-    color: #000000;
+.loginBox .loginTitle:hover{
+    color: #52D093;
 }
 .alert{
     position: absolute;
