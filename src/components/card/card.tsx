@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { User, Users } from '../../types/userType';
+import { Theme, User, Users } from '../../types/userType';
 import s from './card.module.css';
 
 type Props = {
@@ -8,9 +8,10 @@ type Props = {
     roomId:string;
     changeItem:(id:string,roomId:string,index:number,content:string)=>void;
     checkItem:(id:string ,roomId:string, index:number)=>void;
+    changeTheme:(id:string,roomId:string,theme:Theme)=>void;
 }
 
-const Card = ({cardUser,user,roomId,changeItem,checkItem}:Props) => {
+const Card = ({cardUser,user,roomId,changeItem,checkItem,changeTheme}:Props) => {
     const [clear,setClear] = useState(false);
     const [owner,setOwener] = useState<boolean>(user?.uid === cardUser?.uid)
     useEffect(()=>{
@@ -32,6 +33,16 @@ const Card = ({cardUser,user,roomId,changeItem,checkItem}:Props) => {
         <div className={s.cardHeader}>
             <div className={`${s.nameBox} ${s[cardUser?.rooms[roomId].theme]}`}>
                 <h3 className={`${s.name} ${clear===true?s.clear:''}`}>{cardUser.name}</h3>
+                {owner?<ul className={`${s.themeChange}`}>
+                    <li onClick={()=>changeTheme(user.uid, roomId, 'green')} className={s.green}></li>
+                    <li onClick={()=>changeTheme(user.uid, roomId, 'yellow')} className={s.yellow}></li>
+                    <li onClick={()=>changeTheme(user.uid, roomId, 'pink')} className={s.pink}></li>
+                    <li onClick={()=>changeTheme(user.uid, roomId, 'blue')} className={s.blue}></li>
+                    <li onClick={()=>changeTheme(user.uid, roomId, 'purple')} className={s.purple}></li>
+                    <li onClick={()=>changeTheme(user.uid, roomId, 'orange')} className={s.orange}></li>
+                    <li onClick={()=>changeTheme(user.uid, roomId, 'black')} className={s.black}></li>       
+            </ul>:''
+                }
             </div>
             <div className={`${s.clearBox} ${clear===true?s.clear:''}`}>
                 <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -46,16 +57,16 @@ const Card = ({cardUser,user,roomId,changeItem,checkItem}:Props) => {
                     return <li className={s.todoItem} key={index}>
                         <div className={s.leftBox}>
                             <button onClick={()=>{
-                                if(owner){
+                                if(owner===true){
                                     checkItem(cardUser?.uid,roomId,index)
                                 }
-                            }} className={`${owner?s.check_button:s.check_button_enabled} ${todo.done?s.checked:s.unchecked} ${s[cardUser?.rooms[roomId].theme]}`}></button>
+                            }} className={`${owner===true?s.check_button:s.check_button_enabled} ${todo.done?s.checked:s.unchecked} ${s[cardUser?.rooms[roomId].theme]}`}></button>
                             <form className={s.todoItem_form}>
-                                <input className={`${s.todoItem_input} ${clear===true?s.clear:''} ${owner?s.show:s.hide}`} value={todo.content} 
+                                <input className={`${s.todoItem_input} ${clear===true?s.clear:''} ${owner===true?s.show:s.hide}`} value={todo.content} 
                                 onChange={(e)=>changeItem(cardUser?.uid, roomId, index,e.target.value)}
                                 type="text" />
                             </form>
-                            <h5 className={`${s.todo_content} ${clear===true?s.clear:''} ${owner?s.hide:s.show}`}>{todo.content}</h5>
+                            <h5 className={`${s.todo_content} ${clear===true?s.clear:''} ${owner===true?s.hide:s.show}`}>{todo.content}</h5>
                         </div>
                     </li>
                 })

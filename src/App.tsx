@@ -10,7 +10,7 @@ import {Database} from './service/database';
 import app from './service/firebase';
 import {AuthService} from './service/firebaseAuth';
 import { RoomInfoT, RoomsT } from './types/roomType';
-import { User, UserLogin, Users } from './types/userType';
+import { Theme, User, UserLogin, Users } from './types/userType';
 
 const firebaseAuth = new AuthService(app);
 const database = new Database(app);
@@ -30,19 +30,27 @@ function App() {
       let updated = {...userAll};
       updated[id].rooms[roomId].todoList[index].done = updated[id].rooms[roomId].todoList[index].done===true?false:true;
       setUserAll(updated);
-      //update user all 
+      database.updateUser(setUser, id, updated[id]);
       //firebase update user
   }
 
   //toDoList 내용 수정
+  const changeTheme = (id:string, roomId:string, theme:Theme)=>{
+    let updated = {...userAll}
+    updated[id].rooms[roomId].theme = theme;
+    setUserAll(updated);
+    //firebase update user data
+    database.updateUser(setUser, id, updated[id])
+  }
+
   const changeItem = (id:string ,roomId:string, index:number, content:string) =>{
     let updated = {...userAll};
     updated[id].rooms[roomId].todoList[index].content = content;
     setUserAll(updated);
-    //update user All 
     //firebase update user data
+    database.updateUser(setUser, id, updated[id]);
   }
-  //
+  
   const joinNewRoom = (userId:string, roomId:string)=>{
     let updatedUser = {...user};
     updatedUser.rooms[roomId] = {
@@ -71,28 +79,48 @@ function App() {
       return true;
   }
 
-
-
   const makeTeam = (title:string, description:string, year:number, month:number, day:number,
       fine:number,uid:string) =>{
     const newTeam:RoomInfoT = {
       title,
       description,
       roomId:`${Date.now()}`,
-      password:`hello ${user.name}`,
+      password:`pw_${user.name}`,
       theme:'green',
       member:{[user.name]:user.name},
-      memberIds:{uid:uid},
+      memberIds:{[uid]:uid},
       startTime:Date.now(),
       endTime:getTimeEnd(year,month,day),
       remain:calculateTime(Date.now(),getTimeEnd(year,month,day)),
       fine_total:0,
       fine_per_day:fine,
-      fine_each:{uid:0,},
+      fine_each:{[uid]:0,},
     }
-    let updated = {...roomsAll};
-    updated[newTeam.roomId] = newTeam;
-    setRoomsAll(updated);
+    let updatedRooms = {...roomsAll};
+    updatedRooms[newTeam.roomId] = newTeam;
+    setRoomsAll(updatedRooms);
+
+    let updatedUser = {...user};
+    updatedUser.rooms[newTeam.roomId] = {
+        theme:'green',
+        todoList:[
+          {
+            done:false,
+            content:'도전할 목표를 설정해보세요.'
+          }
+        ]
+    }
+    //user setting
+    setUser(updatedUser);
+
+    //usersAll setting
+    let updatedUsers = {...userAll};
+    updatedUsers[user.uid] = {...updatedUser};
+    setUserAll(updatedUsers);
+
+    //Firebase setting
+    database.updateUser(setUser, user.uid, updatedUsers[user.uid]);
+    database.updateRoom(newTeam.roomId,updatedRooms[newTeam.roomId])
 
     return newTeam.roomId;
   }
@@ -101,8 +129,8 @@ function App() {
   const userOn = (loginResult:User)=>{
     console.log(loginResult);
     if(loginResult.uid!==null){
-      //기존 데이터가 없는 경우
       if(userAll[loginResult.uid]===undefined){
+        //기존 데이터가 없는 경우
         const newUser = {
           name:loginResult.name,
           uid:loginResult.uid,
@@ -152,7 +180,7 @@ function App() {
     <Routes>
       <Route path='/' element={<LoginContainer user={user} userOn={userOn} firebaseAuth={firebaseAuth}/>} />
       <Route path='/Rooms' element={<RoomsContainer joinNewRoom={joinNewRoom} makeTeam={makeTeam} userOff={userOff} user={user} roomsAll={roomsAll} firebaseAuth={firebaseAuth}/>} />
-      <Route path='/Main' element={<MainContainer user={user} roomsAll={roomsAll} userOff={userOff} userAll={userAll} checkItem={checkItem} changeItem={changeItem}/>}/>
+      <Route path='/Main' element={<MainContainer user={user} roomsAll={roomsAll} userOff={userOff} userAll={userAll} checkItem={checkItem} changeItem={changeItem} changeTheme={changeTheme}/>}/>
       <Route path='/Edit' element={<EditContainer/>} />
     </Routes>
     </BrowserRouter>

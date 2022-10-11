@@ -25,7 +25,6 @@ const MakeRoom = ({user,setIsNewTeam,makeTeam}:Props) => {
     const [fineState,setFineState] = useState<string>('');
 
     const handleMakeTeam = () =>{
-
         //Type check, uid null check needed
         const roomId = makeTeam(titleState,descState,Number(yearState),Number(monthState),Number(dayState),Number(fineState),user.uid);
         navigate({

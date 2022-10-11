@@ -7,7 +7,7 @@ export type UserLogin ={
     uid:string;
     email:string;
 }
-export type Theme = 'green' | 'orange' | 'pink' | 'yellow';
+export type Theme = 'green' | 'orange' | 'pink' | 'yellow' | 'blue' | 'purple' | 'black';
 export type UserRoomData = {
     todoList:Todo[];
     theme:Theme;

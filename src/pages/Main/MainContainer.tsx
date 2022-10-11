@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Main from './Main';
-import {Todo, User, Users} from '../../types/userType';
+import {Theme, Todo, User, Users} from '../../types/userType';
 import { useLocation } from 'react-router-dom';
 import { RoomInfoT, RoomsT } from '../../types/roomType';
 
@@ -11,8 +11,9 @@ type Props = {
   userOff:()=>void;
   changeItem:(id:string,roomId:string,index:number,content:string)=>void;
   checkItem:(id:string,roomId:string,index:number)=>void;
+  changeTheme:(id:string,roomId:string,theme:Theme)=>void;
 }
-const MainContainer = ({userAll,user,roomsAll,userOff,changeItem,checkItem}:Props) => {
+const MainContainer = ({userAll,user,roomsAll,userOff,changeItem,checkItem,changeTheme}:Props) => {
     const location = useLocation();
     const [roomInfo,setRoomInfo] = useState<RoomInfoT>({
       title:'',
@@ -33,7 +34,7 @@ const MainContainer = ({userAll,user,roomsAll,userOff,changeItem,checkItem}:Prop
       const roomId =  location.search.replace('?','');
       setRoomInfo(roomsAll[roomId]);
     },[]);
-    return <Main userOff={userOff} user={user} userAll={userAll} roomInfo={roomInfo} changeItem={changeItem} checkItem={checkItem} />
+    return <Main userOff={userOff} user={user} userAll={userAll} roomInfo={roomInfo} changeItem={changeItem} checkItem={checkItem} changeTheme={changeTheme} />
 }
 
 export default MainContainer;

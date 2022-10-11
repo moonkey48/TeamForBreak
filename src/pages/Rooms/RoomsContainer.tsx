@@ -51,6 +51,7 @@ const RoomsContainer = ({firebaseAuth,user,userOff,roomsAll,makeTeam,joinNewRoom
             navigate('/')
         }
     },[user]);
+
     
     return <>
     <Rooms user={user} userOff={userOff} goRoomNow={goRoomNow} goRoomNew={goRoomNew} roomsAll={roomsAll} setIsNewTeam={setIsNewTeam} checkPassword={checkPassword} />

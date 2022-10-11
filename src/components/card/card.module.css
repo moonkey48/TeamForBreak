@@ -11,6 +11,10 @@
 .card.yellow{background-color: #F3CE0C;}
 .card.pink{background-color: #E7505B;}
 .card.orange{background-color: #EE7F4D;}
+.card.blue{background-color: #1FB3F2;}
+.card.purple{background-color: #644EE8;}
+.card.black{background-color: #555555;}
+
 
 .cardHeader{
     display: flex;
@@ -42,13 +46,48 @@
     padding: 15px 15px 15px;
 }
 .nameBox{
+    position: relative;
     width: 120px;
     height: 35px;
     border-radius: 10px 0px;
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
 }
+.nameBox:hover .themeChange{
+    opacity: 1;
+}
+.nameBox .themeChange{
+    opacity: 0;
+    width: 120px;
+    height: 14px;
+    position: absolute;
+    top: -20px;
+    left: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    transition: 0.3s opacity;
+    transition-delay: 0.2s;    
+}
+.nameBox .themeChange li{
+    width: 14px;
+    height: 14px;
+    border-radius: 7px;
+    cursor: pointer;
+    transition: 0.3s opacity;
+}
+.nameBox .themeChange li:hover{
+    opacity: 0.6;
+}
+.nameBox .themeChange .green{background-color: #52D093;}
+.nameBox .themeChange .yellow{background-color: #F3CE0C;}
+.nameBox .themeChange .pink{background-color: #E7505B;}
+.nameBox .themeChange .orange{background-color: #EE7F4D;}
+.nameBox .themeChange .purple{background-color: #644EE8;}
+.nameBox .themeChange .blue{background-color: #1FB3F2;}
+.nameBox .themeChange .black{background-color: #555555;}
 .name{
     color: #fff;
     font-weight: 600;
@@ -63,6 +102,10 @@
 .nameBox.yellow{background-color: #F3CE0C;}
 .nameBox.pink{background-color: #E7505B;}
 .nameBox.orange{background-color: #EE7F4D;}
+.nameBox.blue{background-color: #1FB3F2;}
+.nameBox.purple{background-color: #644EE8;}
+.nameBox.black{background-color: #555555;}
+
 
 .todoItem{
     display: flex;
@@ -128,6 +171,30 @@
     background-color: #EE7F4D;
     border: 1px solid #fff;
 }
+.unchecked.blue:hover{
+    background-color: #1FB3F2;
+    border: 1px solid #fff;
+}
+.checked.blue{
+    background-color: #1FB3F2;
+    border: 1px solid #fff;
+}
+.unchecked.purple:hover{
+    background-color: #644EE8;
+    border: 1px solid #fff;
+}
+.checked.purple{
+    background-color: #644EE8;
+    border: 1px solid #fff;
+}
+.unchecked.black:hover{
+    background-color: #555555;
+    border: 1px solid #fff;
+}
+.checked.black{
+    background-color: #555555;
+    border: 1px solid #fff;
+}
 
 .delete_button{
     opacity: 0.3;
@@ -148,10 +215,10 @@
     color: #fff;
 }
 .todo_content.show{
-    display: none;
+    display: block;
 }
 .todo_content.hide{
-    display: block;
+    display: none;
 }
 .todoItem_input{
     font-weight: 600;
@@ -163,10 +230,10 @@
     background: none;
 }
 .todoItem_input.show{
-    display: none;
+    display: block;
 }
 .todoItem_input.hide{
-    display: block;
+    display: none;
 }
 .todoItem_input.clear{
     color: #fff;
