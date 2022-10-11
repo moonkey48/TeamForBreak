@@ -9,10 +9,13 @@ type Props = {
     changeItem:(id:string,roomId:string,index:number,content:string)=>void;
     checkItem:(id:string ,roomId:string, index:number)=>void;
     changeTheme:(id:string,roomId:string,theme:Theme)=>void;
+    addContent:(id:string, roomId:string, content:string)=>void;
+    deleteContent:(id:string, roomId:string,index:number)=>void;
 }
 
-const Card = ({cardUser,user,roomId,changeItem,checkItem,changeTheme}:Props) => {
+const Card = ({cardUser,user,roomId,changeItem,checkItem,changeTheme,addContent,deleteContent}:Props) => {
     const [clear,setClear] = useState(false);
+    const [newContent, setNewContent] = useState('');
     const [owner,setOwener] = useState<boolean>(user?.uid === cardUser?.uid)
     useEffect(()=>{
         let result = true;
@@ -78,6 +81,13 @@ const Card = ({cardUser,user,roomId,changeItem,checkItem,changeTheme}:Props) => 
                     </li>:''}
             </ul>
         }
+        <form onSubmit={(e)=>{
+            e.preventDefault();
+            addContent(user.uid, roomId, newContent);
+            setNewContent('');
+        }}>
+            <input  className={`${s.newItem_input} ${clear?s.hide:s.show}`} type="text" placeholder='추가하고 싶은 목표'  value={newContent} onChange={(e)=>setNewContent(e.target.value)} />
+        </form>
     </li>
 }
 
